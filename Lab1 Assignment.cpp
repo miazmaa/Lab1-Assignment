@@ -11,7 +11,7 @@
 ALLEGRO_COLOR makeColor();
 // void draw_random_pixel(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 //void draw_random_triangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
-//void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
+void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 void draw_random_filled_rectangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 //void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
@@ -52,7 +52,8 @@ int main(int argc, char **argv) {
 	while (!done) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-		//draw_random_pixel(makeColor(), width, height);
+		draw_random_filled_rectangle(makeColor(), width, height);
+		draw_random_circle(makeColor(), width, height);
 		//add additional shapes here
 
 		if (ev.type == ALLEGRO_EVENT_KEY_UP) {
@@ -92,13 +93,13 @@ void draw_random_filled_rectangle(ALLEGRO_COLOR color, const int SCREEN_W, const
 	int x = 200 - rand() % (SCREEN_W-200);
 	int y = 250 -rand() % (SCREEN_H-400);
 	int x1 = 200 -rand() % (SCREEN_W-200);
-	int y1 = 250 -rand() % (SCREEN_W-200);
+	int y1 = 250 -rand() % (SCREEN_W-400);
 	al_draw_filled_rectangle(x, y, x1, y1, color);
 }
 
 void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
-	int x = rand() % (SCREEN_W);
-	int y = rand() % (SCREEN_H);
+	int x = 200 + rand() % (SCREEN_W -450);
+	int y = 300 +rand() % (SCREEN_H);
 	int radius = rand() % 30;
 	al_draw_filled_circle(x, y, radius, color);
 }
