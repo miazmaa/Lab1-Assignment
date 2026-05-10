@@ -9,11 +9,11 @@
 #include <time.h>
 
 ALLEGRO_COLOR makeColor();
-// void draw_random_pixel(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
-//void draw_random_triangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
+void draw_fish(const int SCREEN_W, const int SCREEN_H);
+void draw_random_triangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 void draw_random_filled_rectangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
-//void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
+void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 int main(int argc, char **argv) {
 
@@ -52,9 +52,11 @@ int main(int argc, char **argv) {
 	while (!done) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
-		draw_random_filled_rectangle(makeColor(), width, height);
-		draw_random_circle(makeColor(), width, height);
-		//add additional shapes here
+		draw_fish(width, height);
+		//draw_random_filled_rectangle(makeColor(), width, height);
+		//draw_random_circle(makeColor(), width, height);
+		//draw_random_triangle(makeColor(), width, height);
+		//draw_random_ellipse(makeColor(), width, height);
 
 		if (ev.type == ALLEGRO_EVENT_KEY_UP) {
 			switch (ev.keyboard.keycode)
@@ -102,6 +104,44 @@ void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREE
 	int y = 300 +rand() % (SCREEN_H);
 	int radius = rand() % 30;
 	al_draw_filled_circle(x, y, radius, color);
+}
+
+void draw_random_triangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x1 = 350 - rand() % (SCREEN_W - 500);
+	int y1 = 150 + rand() % (SCREEN_H - 300);
+	int x2 = 350 - rand() % (SCREEN_W - 500);
+	int y2 = 150 + rand() % (SCREEN_H - 300);
+	int x3 = 350 - rand() % (SCREEN_W - 500);
+	int y3 = 150 + rand() % (SCREEN_H - 300);
+	al_draw_filled_triangle(x1, y1, x2, y2, x3, y3, color);
+}
+
+void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
+	int x = 600 - rand() % (SCREEN_W - 600);
+	int y = 300 + rand() % (SCREEN_H - 300);
+	int rx = rand() % 100;
+	int ry = rand() % 100;
+	if (rx < 1) rx = 1;
+	if (ry < 1) ry = 1;
+	al_draw_filled_ellipse(x, y, rx, ry, color);
+}
+
+void draw_fish(const int SCREEN_W, const int SCREEN_H) {
+	int x = SCREEN_W / 2;
+	int y = SCREEN_H / 2;
+	int body_width = 200;
+	int body_height = 100;
+	ALLEGRO_COLOR bodyColor = al_map_rgb(75, 0, 130);
+	al_draw_filled_ellipse(x, y, body_width, body_height,bodyColor);
+
+	int tail_height = 70;
+	int tail_width = 70;
+	ALLEGRO_COLOR tail_color = bodyColor;
+	//figuure out how to finish this later: al_draw_triangle()
+
+	int eye_size = 20;
+	ALLEGRO_COLOR eye_color = al_map_rgb(34, 139, 34);
+	al_draw_filled_circle(body_width + x / 4, y-10, eye_size, eye_color);
 }
 
 
