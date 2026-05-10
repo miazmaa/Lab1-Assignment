@@ -144,6 +144,11 @@ void draw_fish(const int SCREEN_W, const int SCREEN_H) {
 	int eye_size = 20;
 	ALLEGRO_COLOR eye_color = al_map_rgb(34, 139, 34);
 	al_draw_filled_circle(body_width + x / 4, y-10, eye_size, eye_color);
+
+	int mouth_width = 40;
+	int mouth_height = 20;
+	ALLEGRO_COLOR mouth_color = al_map_rgb(0, 0, 0);
+	al_draw_filled_rectangle(x - body_width / 2 - mouth_width - 10, y - mouth_height / 2 + 40, x - body_width /2 - 10, y + mouth_height /2 + 40, mouth_color);
 }
 
 
