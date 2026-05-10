@@ -134,10 +134,12 @@ void draw_fish(const int SCREEN_W, const int SCREEN_H) {
 	ALLEGRO_COLOR bodyColor = al_map_rgb(75, 0, 130);
 	al_draw_filled_ellipse(x, y, body_width, body_height,bodyColor);
 
-	int tail_height = 70;
-	int tail_width = 70;
+	int tail_height = 60;
+	int tail_width = 80;
+	int rx = body_width / 2;
+	int ry = body_height / 2;
 	ALLEGRO_COLOR tail_color = bodyColor;
-	//figuure out how to finish this later: al_draw_triangle()
+	al_draw_filled_triangle(x + body_width, y, x + body_width + tail_width, y - tail_height / 2, x + body_width + tail_width, y + tail_height / 2, tail_color);
 
 	int eye_size = 20;
 	ALLEGRO_COLOR eye_color = al_map_rgb(34, 139, 34);
