@@ -4,3 +4,4 @@ Uses the given game loop to print a single recognizable shape on screen using Al
 3. Circle for the eye (COMPLETE)
 4. Rectangle for the mouth (COMPLETE)
 The code is finished and compiles.
+The files can be zipped and downloaded for installation from GitHub.
