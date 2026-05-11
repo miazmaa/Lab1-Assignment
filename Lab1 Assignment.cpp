@@ -9,14 +9,11 @@
 #include <time.h>
 
 ALLEGRO_COLOR makeColor();
+//draw_fish declaration. The paramaters, SCREEN_W and SCREEN_H, take in the dimensions of the screen the function will print onto. The function will draw a fish with an ellipse for a body, triangle for a tail, filled circle for an eye, and a rectangle for the mouth shape. The return type is void.
 void draw_fish(const int SCREEN_W, const int SCREEN_H);
-void draw_random_triangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
-void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
-void draw_random_filled_rectangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
-void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H);
 
 int main(int argc, char **argv) {
-
+	//Everything in main is copied from the Primitive I and II videos available on Canvas to get the game loop functioning. I'm unfamiliar with Visual Studio, C++, and game programming, so if there's code here I could delete then I wouldn't be able to recognize it yet, sorry!
 	ALLEGRO_DISPLAY* display = NULL;
 	int width = 800;
 	int height = 600;
@@ -52,12 +49,9 @@ int main(int argc, char **argv) {
 	while (!done) {
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
+		//This is the only new statement. It calls the draw_fish function when the user inputs on the spacebar on their device.
 		draw_fish(width, height);
-		//draw_random_filled_rectangle(makeColor(), width, height);
-		//draw_random_circle(makeColor(), width, height);
-		//draw_random_triangle(makeColor(), width, height);
-		//draw_random_ellipse(makeColor(), width, height);
-
+		
 		if (ev.type == ALLEGRO_EVENT_KEY_UP) {
 			switch (ev.keyboard.keycode)
 			{
@@ -91,42 +85,9 @@ ALLEGRO_COLOR makeColor() {
 	return (al_map_rgb(red, green, blue));
 }
 
-void draw_random_filled_rectangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
-	int x = 200 - rand() % (SCREEN_W-200);
-	int y = 250 -rand() % (SCREEN_H-400);
-	int x1 = 200 -rand() % (SCREEN_W-200);
-	int y1 = 250 -rand() % (SCREEN_W-400);
-	al_draw_filled_rectangle(x, y, x1, y1, color);
-}
-
-void draw_random_circle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
-	int x = 200 + rand() % (SCREEN_W -450);
-	int y = 300 +rand() % (SCREEN_H);
-	int radius = rand() % 30;
-	al_draw_filled_circle(x, y, radius, color);
-}
-
-void draw_random_triangle(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
-	int x1 = 350 - rand() % (SCREEN_W - 500);
-	int y1 = 150 + rand() % (SCREEN_H - 300);
-	int x2 = 350 - rand() % (SCREEN_W - 500);
-	int y2 = 150 + rand() % (SCREEN_H - 300);
-	int x3 = 350 - rand() % (SCREEN_W - 500);
-	int y3 = 150 + rand() % (SCREEN_H - 300);
-	al_draw_filled_triangle(x1, y1, x2, y2, x3, y3, color);
-}
-
-void draw_random_ellipse(ALLEGRO_COLOR color, const int SCREEN_W, const int SCREEN_H) {
-	int x = 600 - rand() % (SCREEN_W - 600);
-	int y = 300 + rand() % (SCREEN_H - 300);
-	int rx = rand() % 100;
-	int ry = rand() % 100;
-	if (rx < 1) rx = 1;
-	if (ry < 1) ry = 1;
-	al_draw_filled_ellipse(x, y, rx, ry, color);
-}
-
 void draw_fish(const int SCREEN_W, const int SCREEN_H) {
+
+	//draw_fish is split into 4 different "sections," each labelling the variables used to create a body part per primitive added. The first section creates the width, height, and color of the body. I divided the screen width and height in 2 to print to the center of the screen.
 	int x = SCREEN_W / 2;
 	int y = SCREEN_H / 2;
 	int body_width = 200;
@@ -134,21 +95,28 @@ void draw_fish(const int SCREEN_W, const int SCREEN_H) {
 	ALLEGRO_COLOR bodyColor = al_map_rgb(75, 0, 130);
 	al_draw_filled_ellipse(x, y, body_width, body_height,bodyColor);
 
-	int tail_height = 60;
-	int tail_width = 80;
-	int rx = body_width / 2;
-	int ry = body_height / 2;
+	//Code body for the triangle tail. 
+	int tail_height = 150;
+	int tail_width = 150;
 	ALLEGRO_COLOR tail_color = bodyColor;
 	al_draw_filled_triangle(x + body_width, y, x + body_width + tail_width, y - tail_height / 2, x + body_width + tail_width, y + tail_height / 2, tail_color);
 
+	//Code body for the circle eye. 
 	int eye_size = 20;
 	ALLEGRO_COLOR eye_color = al_map_rgb(34, 139, 34);
 	al_draw_filled_circle(body_width + x / 4, y-10, eye_size, eye_color);
 
+	//Code body for the rectangle mouth.
 	int mouth_width = 40;
 	int mouth_height = 20;
 	ALLEGRO_COLOR mouth_color = al_map_rgb(0, 0, 0);
-	al_draw_filled_rectangle(x - body_width / 2 - mouth_width - 10, y - mouth_height / 2 + 40, x - body_width /2 - 10, y + mouth_height /2 + 40, mouth_color);
+	al_draw_filled_rectangle(x - body_width / 2 - mouth_width - 20, y - mouth_height / 2 + 40, x - body_width /2 - 20, y + mouth_height /2 + 40, mouth_color);
+
+	//Code body for the triangle fin.
+	int fin_width = 70;
+	int fin_height = 60;
+	ALLEGRO_COLOR fin_color = al_map_rgb(93, 63, 211);
+	al_draw_filled_triangle(x + 5 , y, x + 5 + fin_width, y - fin_height / 2, x + 5 + fin_width, y + fin_height /2, fin_color);
 }
 
 
